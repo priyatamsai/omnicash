@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -33,9 +34,18 @@ public class UserController {
     user.setUserName(Name);
     userRepository.save(user);
     return "Success";
-
     }
 
+    @GetMapping("/generateotp/{id}")
+    public String generateOtp(@PathVariable(value = "id") Long id){
+        User user=userRepository.findById(id).orElseThrow(null);
+        String otp=""+(int)(Math.random()*10000);
+        user.setActive_otp(otp);
+        userRepository.save(user);
+        return otp;
+    }
+
+<<<<<<< HEAD
     @GetMapping("/fetch_nearest_stores/{latitude}/{longitude}/{city}/{req_amount}")
     public List<Outlet> fetch_nearest_stores(@PathVariable(value = "latitude") Double latitude,
                                              @PathVariable(value = "longitude") Double longitude,
@@ -50,4 +60,6 @@ public class UserController {
 
         return outlet_list;
     }
+=======
+>>>>>>> added user otp controller
 }
