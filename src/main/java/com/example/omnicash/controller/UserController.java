@@ -45,7 +45,6 @@ public class UserController {
         return otp;
     }
 
-<<<<<<< HEAD
     @GetMapping("/fetch_nearest_stores/{latitude}/{longitude}/{city}/{req_amount}")
     public List<Outlet> fetch_nearest_stores(@PathVariable(value = "latitude") Double latitude,
                                              @PathVariable(value = "longitude") Double longitude,
@@ -53,13 +52,12 @@ public class UserController {
                                              @PathVariable(value = "city") String city){
         List<Outlet> outlet_list=new ArrayList<>();
         for (Outlet outlet : outletRepository.findAll()){
-            if (utils.haversine(outlet.getLocation().getLatitude(),outlet.getLocation().getLongitude(),latitude, longitude) < 2){
+            if ((utils.haversine(outlet.getLocation().getLatitude(),outlet.getLocation().getLongitude(),latitude, longitude) < 2) && outlet.getBalance_money()>=req_amount){
                 outlet_list.add(outlet);
             }
         }
 
         return outlet_list;
     }
-=======
->>>>>>> added user otp controller
+
 }
