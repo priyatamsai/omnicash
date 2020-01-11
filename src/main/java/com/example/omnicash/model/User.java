@@ -14,7 +14,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
-    private long uid;
+    private Long uid;
 
     @Getter
     @Setter
@@ -22,7 +22,7 @@ public class User {
 
     @Getter
     @Setter
-    private long money_wallet;
+    private Long money_wallet;
 
     @Getter
     @Setter
