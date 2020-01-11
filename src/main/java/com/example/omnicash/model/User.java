@@ -5,6 +5,8 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -18,6 +20,7 @@ public class User {
 
     @Getter
     @Setter
+    @NotNull
     private String userName;
 
     @Getter
@@ -34,6 +37,11 @@ public class User {
     @Getter
     @Setter
     private Date createdAt = new Date();
+
+    @Getter
+    @Setter
+    @NotBlank
+    private String Contact;
 
 
 }
