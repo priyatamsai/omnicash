@@ -12,7 +12,7 @@ public class Outlet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
-    private long Oid;
+    private Long Oid;
 
     @Getter
     @Setter
@@ -20,7 +20,7 @@ public class Outlet {
 
     @Getter
     @Setter
-    private long balance_money;
+    private Long balance_money;
 
     @OneToOne
     @Getter
