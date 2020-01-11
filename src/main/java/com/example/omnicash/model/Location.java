@@ -20,9 +20,9 @@ public class Location {
 
     @Getter
     @Setter
-    private String latitude;
+    private Double latitude;
 
     @Getter
     @Setter
-    private String longitude;
+    private Double longitude;
 }

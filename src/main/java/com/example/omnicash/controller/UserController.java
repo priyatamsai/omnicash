@@ -5,6 +5,7 @@ import com.example.omnicash.model.Outlet;
 import com.example.omnicash.model.User;
 import com.example.omnicash.repository.OutletRepository;
 import com.example.omnicash.repository.UserRepository;
+import com.example.omnicash.utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,23 +31,23 @@ public class UserController {
     User user=new User();
     user.setContact(Phone);
     user.setUserName(Name);
-    userRepository.save(user);)
+    userRepository.save(user);
     return "Success";
 
     }
 
-    @GetMapping("/fetch_nearest_stores/{latitude}/{longitude}/{city}")
-    public String fetch_nearest_stores(@PathVariable(value = "latitude") String latitude,
-                                       @PathVariable(value = "longitude") String longitude,
-                                       @PathVariable(value = "city") String city){
+    @GetMapping("/fetch_nearest_stores/{latitude}/{longitude}/{city}/{req_amount}")
+    public List<Outlet> fetch_nearest_stores(@PathVariable(value = "latitude") Double latitude,
+                                             @PathVariable(value = "longitude") Double longitude,
+                                             @PathVariable(value = "req_amount") Double req_amount,
+                                             @PathVariable(value = "city") String city){
         List<Outlet> outlet_list=new ArrayList<>();
-        Location user_loc = new Location(latitude, longitude, city);
         for (Outlet outlet : outletRepository.findAll()){
-            if (consider(outlet.getLocation(), user_loc)){
-
+            if (utils.haversine(outlet.getLocation().getLatitude(),outlet.getLocation().getLongitude(),latitude, longitude) < 2){
+                outlet_list.add(outlet);
             }
         }
 
-        return "";
+        return outlet_list;
     }
 }
