@@ -31,12 +31,11 @@ public class User {
     @Setter
     private String active_otp;
 
-    @Column(nullable = false, updatable = false)
-    @CreatedDate
+    @Column(updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @Getter
     @Setter
-    private Date createdAt = new Date();
+    private Date OtpcreatedAt;
 
     @Getter
     @Setter

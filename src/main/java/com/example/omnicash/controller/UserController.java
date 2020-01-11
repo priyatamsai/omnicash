@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 @RestController
@@ -41,6 +43,8 @@ public class UserController {
         User user=userRepository.findById(id).orElseThrow(null);
         String otp=""+(int)(Math.random()*10000);
         user.setActive_otp(otp);
+        Date currDate = new Date();
+        user.setOtpcreatedAt(currDate);
         userRepository.save(user);
         return otp;
     }
