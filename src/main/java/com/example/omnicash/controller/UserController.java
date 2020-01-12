@@ -81,5 +81,14 @@ public class UserController {
         }
     }
 
+    @GetMapping("/AddMoneyToTheWallet/{uid}/{cash}")
+    public String Addmoney(@PathVariable(value = "id") Long id,
+                           @PathVariable(value = "cash") Long cash){
+        // needs to be further integrated with 3rd party payment gateway
+        User user=userRepository.findById(id).orElseThrow(null);
+        user.setMoney_wallet(cash);
+        userRepository.save(user);
+        return "Success";
+    }
 
 }
