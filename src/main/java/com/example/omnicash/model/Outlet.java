@@ -21,6 +21,10 @@ public class Outlet {
 
     @Getter
     @Setter
+    private Boolean isActive;
+
+    @Getter
+    @Setter
     private Long balance_money;
 
     @Getter
