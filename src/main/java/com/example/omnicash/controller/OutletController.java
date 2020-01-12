@@ -63,4 +63,23 @@ public class OutletController {
         outletRepository.save(outlet);
         return "Transaction Success";
     }
+    @GetMapping("/IsActive/{outletid}/{status}")
+    public String setActive(@PathVariable(value = "outletid") long outletid,
+                            @PathVariable(value = "status") Boolean isactive){
+        Outlet outlet = outletRepository.findById(outletid).orElseThrow(null);
+        outlet.setIsActive(isactive);
+        outletRepository.save(outlet);
+        return "SUCCESS";
+    }
+
+    @GetMapping("/InformCash/{outletid}/{cash}")
+    public String InformCash(@PathVariable(value = "outletid") long outletid,
+                             @PathVariable(value = "cash") long cash){
+        Outlet outlet = outletRepository.findById(outletid).orElseThrow(null);
+        outlet.setBalance_money(cash);
+        outletRepository.save(outlet);
+        String message = "The amount of cash available is "+cash;
+        return message;
+    }
+
 }
