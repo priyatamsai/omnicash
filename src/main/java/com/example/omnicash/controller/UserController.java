@@ -1,6 +1,5 @@
 package com.example.omnicash.controller;
 
-import com.example.omnicash.model.Location;
 import com.example.omnicash.model.Outlet;
 import com.example.omnicash.model.User;
 import com.example.omnicash.repository.OutletRepository;
@@ -9,12 +8,16 @@ import com.example.omnicash.utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.validation.Valid;
 
 
 
@@ -27,15 +30,10 @@ public class UserController {
 
     @Autowired
     private OutletRepository outletRepository;
-
-    @GetMapping("/register/{name}/{phoneno}")
-    public String registerDetails(@PathVariable(value = "name") String Name,
-                                  @PathVariable(value = "phoneno") String Phone){
-    User user=new User();
-    user.setContact(Phone);
-    user.setUserName(Name);
-    userRepository.save(user);
-    return "Success";
+    
+    @PostMapping("/register")
+    public User createPlayer(@Valid @RequestBody User user) {
+    	return userRepository.save(user);
     }
 
     @GetMapping("/generateotp/{id}")
@@ -56,7 +54,7 @@ public class UserController {
                                              @PathVariable(value = "city") String city){
         List<Outlet> outlet_list=new ArrayList<>();
         for (Outlet outlet : outletRepository.findAll()){
-            if ((utils.haversine(outlet.getLocation().getLatitude(),outlet.getLocation().getLongitude(),latitude, longitude) < 2) && outlet.getBalance_money()>=req_amount){
+            if ((utils.haversine(outlet.getLatitude(),outlet.getLongitude(),latitude, longitude) < 2) && outlet.getBalance_money()>=req_amount){
                 outlet_list.add(outlet);
             }
         }

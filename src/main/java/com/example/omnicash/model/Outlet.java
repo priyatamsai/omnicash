@@ -8,7 +8,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "outlet")
 public class Outlet {
-    @Id
+    
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
@@ -22,8 +23,17 @@ public class Outlet {
     @Setter
     private Long balance_money;
 
-    @OneToOne
     @Getter
     @Setter
-    private Location location;
+    private String city_name;
+
+    @Getter
+    @Setter
+    private Double latitude;
+
+    @Getter
+    @Setter
+    private Double longitude;
+    
+    
 }
