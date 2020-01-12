@@ -30,7 +30,6 @@ public class User {
     @Setter
     private String active_otp;
 
-    @Column(updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @Getter
     @Setter
