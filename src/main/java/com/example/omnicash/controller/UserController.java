@@ -8,7 +8,6 @@ import com.example.omnicash.repository.OutletRepository;
 import com.example.omnicash.repository.UserRepository;
 import com.example.omnicash.utils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +35,7 @@ public class UserController {
     private OutletRepository outletRepository;
 
     @PostMapping("/register")
-    public User createPlayer(@Valid @RequestBody User user) {
+    public User createUser(@Valid @RequestBody User user) {
     	return userRepository.save(user);
 
     }

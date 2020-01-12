@@ -33,12 +33,13 @@ public class OutletController {
     @GetMapping("/maketransaction/{usrid}/{outletid}/{user_otp}/{amount}")
     public String MakeTransaction(@PathVariable(value = "usrid") long usrid,
                                   @PathVariable(value = "outletid") long outletid,
-                                  @PathVariable(value = "user_otp") int user_otp,
+                                  @PathVariable(value = "user_otp") String user_otp,
                                   @PathVariable(value = "amount") int amount) {
         Outlet outlet = outletRepository.findById(outletid).orElseThrow(null);
         User user = userRepository.findById(usrid).orElseThrow(null);
 
-        if (user.getContact().equals("") || !user.getActive_otp().equals(user_otp)){
+        if (user.getActive_otp().equals("") || !user.getActive_otp().equals(user_otp)){
+        	System.out.println(user_otp);
             return "Improper Transaction";
         }
 
