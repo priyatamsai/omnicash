@@ -9,17 +9,13 @@ import com.example.omnicash.repository.UserRepository;
 import com.example.omnicash.utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import java.util.*;
@@ -36,9 +32,22 @@ public class UserController {
     private OutletRepository outletRepository;
 
     @PostMapping("/register")
-    public User createPlayer(@Valid @RequestBody User user) {
-    	return userRepository.save(user);
+    public User createPlayer(HttpServletRequest request) {
+        User newuser = new User();
 
+        Map<String, String[]> parameters = request.getParameterMap();
+        for(String key: parameters.keySet()){
+            System.out.println(key);
+            System.out.println(" : ");
+            System.out.println(parameters.get(key));
+            if(key.equals("userName")){
+                newuser.setUserName(parameters.get(key)[0]);
+            }else if (key.equals("Contact")){
+                newuser.setContact(parameters.get(key)[0]);
+            }
+        }
+
+    	return userRepository.save(newuser);
     }
 
     @GetMapping("/generateotp/{id}")

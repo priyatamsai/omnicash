@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/outlet")
@@ -26,8 +28,23 @@ public class OutletController {
     private UserRepository userRepository;
 
     @PostMapping("/register")
-    public Outlet createPlayer(@Valid @RequestBody Outlet outlet) {
-    	return outletRepository.save(outlet);
+    public Outlet createPlayer(HttpServletRequest request) {
+        Outlet newoutlet = new Outlet();
+
+        Map<String, String[]> parameters = request.getParameterMap();
+        for(String key: parameters.keySet()){
+            if(key.equals("OutletName")){
+                newoutlet.setOutletName(parameters.get(key)[0]);
+            }else if (key.equals("city")){
+                newoutlet.setCity_name(parameters.get(key)[0]);
+            }else if (key.equals("latitude")){
+                newoutlet.setLatitude(Double.valueOf(parameters.get(key)[0]));
+            }else if (key.equals("longitude")){
+                newoutlet.setLongitude(Double.valueOf(parameters.get(key)[0]));
+            }
+        }
+
+    	return outletRepository.save(newoutlet);
     }
 
     @GetMapping("/maketransaction/{usrid}/{outletid}/{user_otp}/{amount}")
